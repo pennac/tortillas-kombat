@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   modules: ['@vite-pwa/nuxt'],
   // ID di Google Analytics 4: si imposta su Netlify con la variabile NUXT_PUBLIC_GA_ID (es. G-XXXXXXXXXX)
   // NUXT_PUBLIC_MEDIA_URL: se i video stanno su un CDN esterno (es. https://media.tuodominio.com), altrimenti vuoto
-  runtimeConfig: { public: { gaId: '', mediaUrl: '' } },
+  runtimeConfig: { public: { gaId: process.env.PREVIEW ? '' : 'G-Q2ZFZ5X3RP', mediaUrl: '' } },
   css: [
     '@fontsource/bangers/400.css',
     '@fontsource/comic-neue/400.css',
@@ -29,7 +29,8 @@ export default defineNuxtConfig({
         { name: 'apple-mobile-web-app-title', content: '¡VUELCO!' },
         { name: 'description', content: 'El cooking show-picchiaduro del régimen. Introduce la palabra clave y entra en antena.' },
         { property: 'og:title', content: 'Tortillas Kombat · ¡VUELCO! El Show' },
-        { property: 'og:image', content: '/icons/og-image.jpg' /* meglio con l'URL completo del dominio */ },
+        { property: 'og:image', content: 'https://www.tortillas-kombat.com/icons/og-image.jpg' },
+        { property: 'og:url', content: 'https://www.tortillas-kombat.com/' },
         { property: 'og:type', content: 'website' },
         { name: 'twitter:card', content: 'summary_large_image' }
       ],
@@ -92,6 +93,8 @@ export default defineNuxtConfig({
   },
   router: { options: { hashMode: !!process.env.PREVIEW } },
   nitro: {
+    // build statico in .output/public anche su Cloudflare Pages (che altrimenti sceglierebbe il preset cloudflare)
+    preset: 'static',
     prerender: {
       routes: ['/', '/play', '/legal', '/roster', '/puntata/0', '/puntata/1', '/puntata/2', '/puntata/3', '/puntata/4', '/puntata/5', '/puntata/6']
     }
