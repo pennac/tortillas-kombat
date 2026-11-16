@@ -32,14 +32,6 @@ function play(where: string) {
   router.push('/play')
 }
 
-function cookiePrefs() {
-  try {
-    const raw = JSON.parse(localStorage.getItem('tk_vuelco_v1') || '{}')
-    raw.consent = null
-    localStorage.setItem('tk_vuelco_v1', JSON.stringify(raw))
-  } catch { /* ignora */ }
-  location.reload()
-}
 </script>
 
 <template>
@@ -126,7 +118,7 @@ function cookiePrefs() {
 
     <footer>
       <a :href="ig" target="_blank" rel="noopener">📸 {{ L.follow }} · @tortillas.kombat</a>
-      <button type="button" class="linkbtn" @click="cookiePrefs">{{ L.cookies }}</button>
+      <NuxtLink to="/legal" class="linkbtn">{{ t.legalLink }}</NuxtLink>
       <p>© Tortillas Kombat · ¡VUELCO! El Show</p>
     </footer>
 
@@ -201,7 +193,7 @@ h1 small { display: block; font-size: .38em; color: var(--paper); transform: rot
 footer { text-align: center; padding: 20px 20px calc(30px + env(safe-area-inset-bottom)); border-top: 1px solid rgba(239,230,210,.15); font-size: .9rem; }
 footer a { color: var(--yolk); font-weight: 700; text-decoration: none; }
 footer p { opacity: .5; margin: .8em 0 0; }
-.linkbtn { display: block; margin: .8em auto 0; background: none; border: 0; color: var(--paper); opacity: .7; text-decoration: underline; font-size: .85rem; }
+.linkbtn { display: block; margin: .8em auto 0; background: none; border: 0; font-weight: 400 !important; color: var(--paper); opacity: .7; text-decoration: underline; font-size: .85rem; }
 
 /* tablet e desktop */
 @media (min-width: 760px) {

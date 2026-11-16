@@ -49,7 +49,7 @@ export function useGame() {
 
   const t = computed(() => ui[state.lang])
 
-  function setConsent(c: 'yes' | 'no') {
+  function setConsent(c: 'yes' | 'no' | null) {
     state.consent = c
     save()
   }

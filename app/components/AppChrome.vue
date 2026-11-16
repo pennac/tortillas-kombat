@@ -2,12 +2,13 @@
 // Elementi comuni a tutte le pagine: consenso cookie, avviso orientamento.
 const { state, t } = useGame()
 const { accept, refuse, enabled } = useAnalytics()
-const showConsent = computed(() => enabled && state.consent === null)
+const route = useRoute()
+const showConsent = computed(() => enabled && state.consent === null && route.path !== '/legal')
 </script>
 
 <template>
   <div v-if="showConsent" class="consent">
-    <p>{{ t.consentText }}</p>
+    <p>{{ t.consentText }} <NuxtLink to="/legal" class="more">{{ t.legalLink }}</NuxtLink></p>
     <div class="row">
       <button class="btn small ghost" @click="refuse">{{ t.consentNo }}</button>
       <button class="btn small" @click="accept">{{ t.consentYes }}</button>
@@ -24,6 +25,7 @@ const showConsent = computed(() => enabled && state.consent === null)
   font-size: .9rem; font-weight: 700;
 }
 .consent p { margin: 0 0 10px; line-height: 1.3; }
+.more { color: var(--red); font-weight: 700; }
 .row { display: flex; gap: 8px; justify-content: flex-end; }
 .btn.small { font-size: 1rem; padding: .35em .9em; }
 .btn.ghost { background: transparent; color: var(--ink); box-shadow: none; }

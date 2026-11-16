@@ -206,6 +206,7 @@ onBeforeUnmount(() => { clearInterval(tick); clearTimeout(toastTimer) })
     <p v-if="toast" class="toast inked" :class="toast.kind">{{ toast.text }}</p>
 
     <div v-if="phase === 'intro'" class="card">
+      <img class="tartana-ico" :src="asset('media/ui/tartana-icona.webp')" alt="">
       <h2 class="inked">{{ t.tartanaTitle }}</h2>
       <p>{{ t.tartanaHelp }}</p>
       <p class="goal">{{ t.tartanaGoal }}</p>
@@ -312,4 +313,5 @@ onBeforeUnmount(() => { clearInterval(tick); clearTimeout(toastTimer) })
 .card .big { font-size: 1.15rem; margin-bottom: .35em; }
 .card small { display: block; font-size: .8rem; opacity: .7; }
 .row { display: flex; gap: 10px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+.tartana-ico { display: block; width: 46%; margin: -70px auto 0; filter: drop-shadow(3px 4px 0 rgba(0,0,0,.35)); }
 </style>

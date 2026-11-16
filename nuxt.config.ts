@@ -93,7 +93,7 @@ export default defineNuxtConfig({
   router: { options: { hashMode: !!process.env.PREVIEW } },
   nitro: {
     prerender: {
-      routes: ['/', '/play', '/roster', '/puntata/0', '/puntata/1', '/puntata/2', '/puntata/3', '/puntata/4', '/puntata/5', '/puntata/6']
+      routes: ['/', '/play', '/legal', '/roster', '/puntata/0', '/puntata/1', '/puntata/2', '/puntata/3', '/puntata/4', '/puntata/5', '/puntata/6']
     }
   }
 })

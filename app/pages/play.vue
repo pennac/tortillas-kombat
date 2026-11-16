@@ -130,6 +130,7 @@ onBeforeUnmount(() => clearInterval(zapTimer))
       </button>
       <NuxtLink to="/roster" class="rosterlink">☰ {{ t.roster }}</NuxtLink>
       <button v-if="canInstall" type="button" class="installbtn" @click="install">{{ t.install }}</button>
+      <NuxtLink to="/legal" class="legallink">{{ t.legalLink }}</NuxtLink>
     </form>
     <IosTip v-if="iosTip" @close="iosTip = false" />
     <TostadaEgg />
@@ -223,6 +224,7 @@ label {
 .redbtn img { width: 100%; border: 3px solid var(--ink); border-radius: 10px; box-shadow: 3px 3px 0 var(--ink); transition: transform .08s; }
 .redbtn:active img { transform: translate(2px, 2px) scale(.97); box-shadow: 1px 1px 0 var(--ink); }
 .redbtn span { margin-top: -10px; font-size: 1.05rem; color: var(--paper); white-space: nowrap; }
+.legallink { text-align: center; color: var(--paper); opacity: .55; font-size: .78rem; }
 .installbtn {
   align-self: center; background: none; border: 2px dashed rgba(239,230,210,.6); border-radius: 10px;
   color: var(--yolk); font-family: var(--title); letter-spacing: .08em; font-size: 1rem; padding: .3em .8em;
