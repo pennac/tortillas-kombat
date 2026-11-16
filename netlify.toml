@@ -1,0 +1,9 @@
+[build]
+  command = "npm run generate"
+  publish = ".output/public"
+
+# Variabili (Site configuration > Environment variables):
+#   NUXT_PUBLIC_GA_ID    = G-XXXXXXXXXX   (Google Analytics 4)
+#   NUXT_PUBLIC_MEDIA_URL = https://media.tuodominio.com   (solo se i video stanno su Cloudflare R2;
+#                          in quel caso usa come comando di build: npm run generate:cdn)
+# Le intestazioni di cache sono in public/_headers

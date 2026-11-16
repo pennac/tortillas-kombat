@@ -1,0 +1,146 @@
+/* Tortillas Kombat · ¡VUELCO! — stile base */
+:root {
+  --ink: #14110d;
+  --paper: #efe6d2;
+  --yolk: #f2b632;
+  --yolk-dark: #b9801a;
+  --red: #c8321e;
+  --gold: #c9a227;
+  --olive: #8a9a3b;
+  --title: 'Bangers', 'Impact', sans-serif;
+  --text: 'Comic Neue', 'Comic Sans MS', sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #050403;
+  color: var(--paper);
+  font-family: var(--text);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  touch-action: manipulation; /* niente zoom col doppio tocco */
+  overscroll-behavior: none;
+}
+#__nuxt { height: 100%; }
+input { font-size: max(16px, 1em); } /* iPhone non fa zoom quando si scrive la parola chiave */
+button { font-family: inherit; cursor: pointer; }
+
+/* Cornice verticale tipo smartphone, centrata anche su desktop */
+.stage {
+  position: relative;
+  width: 100%;
+  /* resta dentro le zone sicure (notch, barra home) quando è installata come app */
+  --safe-h: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  max-width: calc(var(--safe-h) * 9 / 16);
+  height: var(--safe-h);
+  margin: env(safe-area-inset-top) auto 0;
+  overflow: hidden;
+  background: var(--ink);
+  user-select: none;
+}
+@media (min-aspect-ratio: 9/16) {
+  .stage { box-shadow: 0 0 0 1px #2a241c, 0 0 80px rgba(0, 0, 0, .8); }
+}
+
+.media-fill {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+/* Linee CRT e vignetta */
+.crt::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to bottom, rgba(0,0,0,.18) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.65) 100%);
+  z-index: 5;
+}
+
+/* Rumore TV (cambio canale) */
+.static {
+  position: absolute; inset: -20%;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: screen;
+}
+.static.on { animation: staticFlash .35s steps(4) both; }
+@keyframes staticFlash {
+  0% { opacity: .9; transform: translate(0, 0); }
+  33% { opacity: .8; transform: translate(-6%, 4%); }
+  66% { opacity: .6; transform: translate(5%, -3%); }
+  100% { opacity: 0; transform: translate(0, 0); }
+}
+
+/* Testo titolo con contorno a inchiostro */
+.inked {
+  font-family: var(--title);
+  letter-spacing: .02em;
+  -webkit-text-stroke: 2px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 var(--ink);
+}
+
+.btn {
+  font-family: var(--title);
+  font-size: 1.5rem;
+  letter-spacing: .04em;
+  padding: .55em 1.1em;
+  color: var(--ink);
+  background: var(--yolk);
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform .08s;
+}
+.btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.btn.red { background: var(--red); color: var(--paper); }
+.btn.ghost { background: var(--paper); }
+
+.pill {
+  font-family: var(--title);
+  font-size: .95rem;
+  letter-spacing: .08em;
+  padding: .25em .7em;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+}
+
+/* ---- minigiochi: struttura comune ---- */
+.mg { position: absolute; inset: 0; z-index: 30; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; }
+.mg-bg { filter: blur(2px) brightness(.5) saturate(.85); transform: scale(1.05); }
+.mg-hud {
+  position: absolute; top: 14px; left: 14px; right: 14px; z-index: 6;
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+}
+.mg-hud .pill.title { background: var(--yolk); color: var(--ink); }
+.mg-stat { font-family: var(--title); letter-spacing: .06em; font-size: 1.1rem; text-shadow: 2px 2px 0 var(--ink); }
+.mg-card {
+  position: absolute; left: 18px; right: 18px; top: 50%; transform: translateY(-50%);
+  z-index: 20; padding: 20px 18px; text-align: center;
+  background: var(--paper); color: var(--ink);
+  border: 3px solid var(--ink); border-radius: 14px; box-shadow: 6px 6px 0 var(--ink);
+}
+.mg-card h2 { margin: 0 0 .3em; font-size: 2.3rem; color: var(--yolk); }
+.mg-card p { margin: 0 0 1em; font-size: 1.08rem; font-weight: 700; line-height: 1.3; }
+.mg-card.win { background: var(--red); }
+.mg-card.win h2 { font-size: 2.8rem; animation: mgPop .5s ease-out; }
+.mg-shout {
+  position: absolute; left: 50%; top: 22%; transform: translateX(-50%); z-index: 8;
+  font-family: var(--title); font-size: 2.1rem; letter-spacing: .04em; white-space: nowrap;
+  -webkit-text-stroke: 2px var(--ink); text-shadow: 3px 3px 0 var(--ink);
+  padding: 1em 1.2em 1.3em; background: center / 100% 100% no-repeat;
+  animation: mgPop .45s ease-out; pointer-events: none;
+}
+@keyframes mgPop { 0% { transform: translateX(-50%) scale(.4) rotate(-8deg); opacity: 0; } 60% { transform: translateX(-50%) scale(1.12) rotate(3deg); opacity: 1; } 100% { transform: translateX(-50%) scale(1) rotate(-2deg); } }
+.mg-card.win h2 { animation: none; }
+/* niente trascinamento nativo delle immagini dentro i giochi (interrompe il gesto) */
+.mg img { -webkit-user-drag: none; user-select: none; pointer-events: none; }
